@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 
-  Firestore.instance.collection('teste').add({'teste': 'teste'});
+  DocumentSnapshot document = await Firestore.instance
+    .collection('usuarios').document('GG8iITzvJzjlwp97UfEs').get();
+
+  print(document.data);
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +20,6 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Container(),
-      //teste
     );
   }
 }
