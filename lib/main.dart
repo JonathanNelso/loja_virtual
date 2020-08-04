@@ -1,25 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/screens/base/base_screen.dart';
 
-void main() async {
+void main() {
   runApp(MyApp());
-
-  DocumentSnapshot document = await Firestore.instance
-    .collection('usuarios').document('GG8iITzvJzjlwp97UfEs').get();
-
-  print(document.data);
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Loja do JohNelson',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Container(),
+      home: baseScreen(),
     );
   }
 }
