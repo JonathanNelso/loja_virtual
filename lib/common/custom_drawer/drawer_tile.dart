@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/page_maneger.dart';
+import 'package:provider/provider.dart';
 
 class DrawerTile extends StatelessWidget {
 
@@ -12,6 +14,7 @@ class DrawerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
+        context.read<PageManeger>().setPage(page);
         debugPrint('toquei $page');
       },
       child: SizedBox(
