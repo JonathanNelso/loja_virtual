@@ -1,3 +1,6 @@
+import 'package:loja_virtual/models/user.dart';
+import 'package:loja_virtual/models/user_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/helpers/validators.dart';
 
@@ -7,10 +10,12 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldkey,
       appBar: AppBar(
         title: const Text('Entrar'),
         centerTitle: true,
@@ -66,7 +71,24 @@ class LoginScreen extends StatelessWidget {
                   child: RaisedButton(
                    onPressed: (){
                      if(formKey.currentState.validate()){
-                       print(emailController.text);
+                      context.read<UserManager>().signIn(
+                        user: User(
+                          email: emailController.text,
+                          password: passController.text
+                        ),
+                        onFail: (e){
+                          scaffoldkey.currentState.showSnackBar(
+                            SnackBar(
+                              content: Text('Falha ao entrar: $e'),
+                              backgroundColor: Colors.red,
+                            )
+                          );
+                        },
+                        onSuccess: (){
+                          // TODO: FECHAR TELA DE LOGIN
+
+                        }
+                      );                     
                      }
                    },
                    color: Theme.of(context).primaryColor,
