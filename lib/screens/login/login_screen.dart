@@ -4,9 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/helpers/validators.dart';
 
-import '../../models/user_manager.dart';
-
 class LoginScreen extends StatelessWidget {
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
@@ -39,13 +38,12 @@ class LoginScreen extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       validator: (email) {
-                        if (!emailValid(email)) return 'E-mail invalido';
+                        if (!emailValid(email)) 
+                          return 'E-mail invalido';
                         return null;
                       },
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    const SizedBox(height: 16,),
                     TextFormField(
                       controller: passController,
                       enabled: !userManager.loading,
@@ -59,24 +57,24 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     child,
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    const SizedBox(height: 16,),
                     SizedBox(
                       height: 44,
                       child: RaisedButton(
-                        onPressed: () {
+                        onPressed: userManager.loading ? null : () {
                           if (formKey.currentState.validate()) {
                             userManager.signIn(
                                 user: User(
                                     email: emailController.text,
-                                    password: passController.text),
+                                    password: passController.text
+                                ),
                                 onFail: (e) {
-                                  scaffoldkey.currentState
-                                      .showSnackBar(SnackBar(
-                                    content: Text('Falha ao entrar: $e'),
-                                    backgroundColor: Colors.red,
-                                  ));
+                                  scaffoldkey.currentState.showSnackBar(
+                                    SnackBar(
+                                      content: Text('Falha ao entrar: $e'),
+                                      backgroundColor: Colors.red,
+                                    )
+                                  );
                                 },
                                 onSuccess: () {
                                   // TODO: FECHAR TELA DE LOGIN
@@ -84,8 +82,14 @@ class LoginScreen extends StatelessWidget {
                           }
                         },
                         color: Theme.of(context).primaryColor,
+                        disabledColor: Theme.of(context).primaryColor
+                        .withAlpha(100),
                         textColor: Colors.white,
-                        child: const Text(
+                        child: userManager.loading ? 
+                        CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ) :
+                        const Text(
                           'Entrar',
                           style: TextStyle(
                             fontSize: 18,
