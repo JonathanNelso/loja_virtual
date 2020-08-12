@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/screens/base/base_screen.dart';
+import 'package:loja_virtual/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,7 +24,20 @@ class MyApp extends StatelessWidget {
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: baseScreen(),
+        initialRoute: '/base',
+        onGenerateRoute: (settings){
+          switch(settings.name){
+            case '/signup':
+              return MaterialPageRoute(
+                builder: (_) => SignUpScreen()
+              );
+              case '/bese':
+              default:
+                return MaterialPageRoute(
+                  builder: (_) => baseScreen()
+              );
+          }      
+        },
       ),
     );
   }
