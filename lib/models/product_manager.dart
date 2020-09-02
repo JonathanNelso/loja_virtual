@@ -13,7 +13,7 @@ class ProductManager {
       await firestore.collection('products').getDocuments();
 
       for(DocumentSnapshot doc in snapProducts.documents){
-        print(doc);
+        print(doc.data);
       }
   }
 
