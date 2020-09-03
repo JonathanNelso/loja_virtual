@@ -37,7 +37,7 @@ class UserManager extends ChangeNotifier {
   } 
 
   Future<void> signUp({User user, Function onFail, Function onSuccess}) async{
-    loading = true;
+    loading = true; 
     try {
     final AuthResult result = await auth.createUserWithEmailAndPassword(
       email: user.email, password: user.password);
